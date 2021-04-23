@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    "use strict"
+    const developmentTeam = {
+      teting: [
+        {
+          name: "Martina",
+          salary: 312
+        },
+        {
+          name: "Olga",
+          salary: 212
+        }
+      ],
+      developers: {
+        backEnd: [
+          {
+            name: "Jaydeep",
+            salary: 650
+          }
+        ],
+        frontEnd: [
+          {
+            name: "Denis",
+            salary: 510
+          },
+          {
+            name: "Juri",
+            salary: 450
+          }
+        ]
+      }
+    };
+
+    let getSalary = (team) => {
+      let sum = 0;
+      let count = 0;
+      team.forEach(item => {
+        sum += item.salary;
+        count++;
+      });
+      return {
+        sum,
+        count
+      }
+    }
+
+    let getTeamSalary = (team, result = { sum: 0, count: 0 }) => {
+      if (Array.isArray(team)) {
+        return {
+          sum: getSalary(team).sum,
+          count: getSalary(team).count
+        };
+      } else {
+        for (let key in team) {
+          let obj = getTeamSalary(team[key], result);
+          if (obj.sum) {
+            result.sum += obj.sum;
+            result.count += obj.count;
+          }
+        }
+      }
+      return result.sum / result.count;
+    };
+
+    console.log(getTeamSalary(developmentTeam));
+  </script>
+</body>
+
+</html>
